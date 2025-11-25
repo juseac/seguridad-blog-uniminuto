@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionamiento y Algoritmos Representativos | CryptoCore S3</title>
+        <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>CryptoCore <span class="highlight">S3</span></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#entradas">Entradas</a>
+                <a href="index.html#about">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Header -->
+    <section class="post-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+            <h1 class="post-title">Funcionamiento y Algoritmos Representativos</h1>
+            <div class="post-meta">
+                <span>📅 Entrada 2</span>
+                <span>⏱️ 8 min de lectura</span>
+                <span>🏷️ Algoritmos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <div class="container">
+            
+            <h2>Introducción</h2>
+            <p>Los criptosistemas de clave pública se basan en problemas matemáticos complejos que son fáciles de calcular en una dirección pero extremadamente difíciles de invertir sin conocimiento de información secreta específica. Esta entrada explora los fundamentos matemáticos de estos sistemas y examina en detalle los algoritmos más representativos utilizados en la industria actual.</p>
+
+            <h2>Fundamentos Matemáticos</h2>
+            <p>La seguridad de los criptosistemas de clave pública se basa en la existencia de <strong>funciones de un solo sentido con trampa</strong> (trapdoor one-way functions). Estas son funciones matemáticas que satisfacen las siguientes propiedades:</p>
+
+            <ul>
+                <li><strong>Facilidad de cálculo:</strong> Dado un valor de entrada, es computacionalmente fácil calcular la salida de la función.</li>
+                <li><strong>Dificultad de inversión:</strong> Dada la salida, es computacionalmente intratable encontrar la entrada original que la produjo.</li>
+                <li><strong>Existencia de trampa:</strong> Con conocimiento de información secreta especial (la "trampa"), la función puede invertirse eficientemente.</li>
+            </ul>
+
+            <p>Los problemas matemáticos más comúnmente utilizados como base para estas funciones incluyen:</p>
+
+            <ol>
+                <li><strong>Factorización de enteros:</strong> La dificultad de descomponer un número grande en sus factores primos.</li>
+                <li><strong>Logaritmo discreto:</strong> La dificultad de resolver la ecuación g^x = h (mod p) para x cuando se conocen g, h y p.</li>
+                <li><strong>Logaritmo discreto en curvas elípticas:</strong> Una variante del problema anterior aplicado a puntos en curvas elípticas.</li>
+            </ol>
+
+            <h2>RSA (Rivest-Shamir-Adleman)</h2>
+            <p>RSA es el algoritmo de clave pública más ampliamente utilizado y estudiado, nombrado en honor a sus creadores Ronald Rivest, Adi Shamir y Leonard Adleman, quienes lo desarrollaron en 1977. Su seguridad se basa en la dificultad de factorizar números enteros grandes.</p>
+
+            <h3>Generación de Claves RSA</h3>
+            <p>El proceso de generación de claves en RSA involucra los siguientes pasos:</p>
+
+            <ol>
+                <li><strong>Selección de primos:</strong> Se eligen dos números primos grandes distintos, p y q. En aplicaciones prácticas, estos números suelen tener 1024, 2048 o 4096 bits de longitud.</li>
+                <li><strong>Cálculo del módulo:</strong> Se calcula n = p × q. Este número n se utilizará como módulo tanto para las operaciones de cifrado como de descifrado.</li>
+                <li><strong>Función de Euler:</strong> Se calcula φ(n) = (p-1) × (q-1), donde φ representa la función indicatriz de Euler.</li>
+                <li><strong>Exponente público:</strong> Se elige un número entero e tal que 1 < e < φ(n) y que sea coprimo con φ(n). Comúnmente se utiliza e = 65537 por razones de eficiencia.</li>
+                <li><strong>Exponente privado:</strong> Se calcula d, el inverso multiplicativo de e módulo φ(n), es decir, d satisface la ecuación e × d ≡ 1 (mod φ(n)).</li>
+            </ol>
+
+            <p>La <strong>clave pública</strong> consiste en el par (n, e), mientras que la <strong>clave privada</strong> es el par (n, d). Los valores p, q y φ(n) deben mantenerse secretos o destruirse después de generar las claves.</p>
+
+            <h3>Cifrado y Descifrado RSA</h3>
+            <p>Para cifrar un mensaje M (representado como un número entre 0 y n-1) utilizando la clave pública (n, e):</p>
+            <pre><code>C = M^e mod n</code></pre>
+
+            <p>Para descifrar el texto cifrado C utilizando la clave privada (n, d):</p>
+            <pre><code>M = C^d mod n</code></pre>
+
+            <p>La correctitud del algoritmo se basa en el teorema de Euler, que garantiza que (M^e)^d ≡ M (mod n) cuando se cumplen las condiciones adecuadas.</p>
+
+            <div class="info-box">
+                <strong>💡 Aplicaciones de RSA:</strong> RSA se utiliza ampliamente en protocolos SSL/TLS para asegurar comunicaciones web, en sistemas de correo electrónico cifrado (PGP, S/MIME), en firmas digitales para verificar autenticidad de software, y en tarjetas inteligentes para autenticación segura.
+            </div>
+
+            <h2>Diffie-Hellman</h2>
+            <p>El protocolo de intercambio de claves Diffie-Hellman, publicado en 1976, fue el primer algoritmo práctico de criptografía de clave pública. Aunque técnicamente no es un sistema de cifrado completo, permite que dos partes establezcan una clave secreta compartida a través de un canal inseguro sin haberla intercambiado previamente.</p>
+
+            <h3>Funcionamiento del Protocolo</h3>
+            <p>El protocolo Diffie-Hellman funciona de la siguiente manera:</p>
+
+            <ol>
+                <li><strong>Parámetros públicos:</strong> Se acuerdan públicamente un número primo grande p y una base g (generador del grupo multiplicativo módulo p).</li>
+                <li><strong>Generación de claves privadas:</strong> El usuario A elige aleatoriamente un número privado a, y el usuario B elige un número privado b.</li>
+                <li><strong>Cálculo de claves públicas:</strong> A calcula A = g^a mod p y lo envía a B. B calcula B = g^b mod p y lo envía a A.</li>
+                <li><strong>Cálculo de la clave compartida:</strong> A calcula s = B^a mod p, y B calcula s = A^b mod p. Ambos obtienen el mismo valor s = g^(ab) mod p.</li>
+            </ol>
+
+            <p>La seguridad del protocolo se basa en la dificultad del problema del logaritmo discreto: incluso si un atacante intercepta g, p, A y B, no puede calcular eficientemente el secreto compartido s sin conocer a o b.</p>
+
+            <div class="warning-box">
+                <strong>⚠️ Vulnerabilidad:</strong> Diffie-Hellman en su forma básica es vulnerable a ataques de intermediario (man-in-the-middle). Se requieren mecanismos adicionales de autenticación para garantizar que las partes están comunicándose con quien creen que están comunicándose.
+            </div>
+
+            <h2>ElGamal</h2>
+            <p>El algoritmo ElGamal, desarrollado por Taher ElGamal en 1985, es un sistema de cifrado de clave pública que extiende el concepto de Diffie-Hellman para proporcionar capacidades completas de cifrado y firma digital. Su seguridad también se basa en el problema del logaritmo discreto.</p>
+
+            <h3>Características de ElGamal</h3>
+            <p>ElGamal presenta varias características distintivas:</p>
+
+            <ul>
+                <li><strong>Cifrado probabilístico:</strong> A diferencia de RSA, ElGamal es un algoritmo probabilístico, lo que significa que el mismo mensaje cifrado dos veces producirá textos cifrados diferentes.</li>
+                <li><strong>Expansión del texto cifrado:</strong> El texto cifrado en ElGamal es aproximadamente el doble del tamaño del texto plano original.</li>
+                <li><strong>Firmas digitales:</strong> ElGamal proporciona un esquema de firma digital que se utiliza en el estándar DSA (Digital Signature Algorithm).</li>
+                <li><strong>Seguridad semántica:</strong> La naturaleza probabilística de ElGamal proporciona seguridad semántica bajo ciertas suposiciones criptográficas.</li>
+            </ul>
+
+            <h3>Proceso de Cifrado ElGamal</h3>
+            <p>En ElGamal, la clave pública consiste en (p, g, h), donde p es un número primo grande, g es un generador, y h = g^x mod p (siendo x la clave privada). Para cifrar un mensaje M:</p>
+
+            <ol>
+                <li>Se elige aleatoriamente un número k</li>
+                <li>Se calcula c1 = g^k mod p</li>
+                <li>Se calcula c2 = M × h^k mod p</li>
+                <li>El texto cifrado es el par (c1, c2)</li>
+            </ol>
+
+            <p>El descifrado se realiza calculando M = c2 × (c1^x)^(-1) mod p, donde x es la clave privada.</p>
+
+            <h2>Criptografía de Curvas Elípticas (ECC)</h2>
+            <p>La criptografía de curvas elípticas (ECC, por sus siglas en inglés) representa una evolución significativa en los sistemas de clave pública. Desarrollada independientemente por Neal Koblitz y Victor Miller en 1985, ECC ofrece niveles de seguridad comparables a RSA y Diffie-Hellman pero con claves significativamente más pequeñas.</p>
+
+            <h3>Fundamentos de ECC</h3>
+            <p>ECC se basa en la aritmética de puntos en curvas elípticas definidas sobre campos finitos. Una curva elíptica típicamente se define por una ecuación de la forma:</p>
+            <pre><code>y² = x³ + ax + b (mod p)</code></pre>
+
+            <p>La seguridad de ECC proviene de la dificultad del problema del logaritmo discreto en el grupo de puntos de la curva elíptica, que es considerablemente más difícil que el logaritmo discreto en campos finitos normales.</p>
+
+            <h3>Ventajas de ECC</h3>
+            <p>La criptografía de curvas elípticas ofrece varias ventajas significativas:</p>
+
+            <ul>
+                <li><strong>Claves más pequeñas:</strong> Una clave ECC de 256 bits proporciona seguridad comparable a una clave RSA de 3072 bits.</li>
+                <li><strong>Eficiencia computacional:</strong> Las operaciones en ECC son generalmente más rápidas que RSA para niveles equivalentes de seguridad.</li>
+                <li><strong>Menor consumo de ancho de banda:</strong> Los certificados y firmas digitales basados en ECC son más pequeños.</li>
+                <li><strong>Ideal para dispositivos móviles:</strong> Su eficiencia los hace perfectos para IoT y dispositivos con recursos limitados.</li>
+            </ul>
+
+            <h3>Algoritmos Basados en ECC</h3>
+            <p>Existen varios algoritmos importantes basados en curvas elípticas:</p>
+
+            <ul>
+                <li><strong>ECDH (Elliptic Curve Diffie-Hellman):</strong> Protocolo de intercambio de claves basado en curvas elípticas.</li>
+                <li><strong>ECDSA (Elliptic Curve Digital Signature Algorithm):</strong> Algoritmo de firma digital que utiliza ECC, adoptado por Bitcoin y otras criptomonedas.</li>
+                <li><strong>ECIES (Elliptic Curve Integrated Encryption Scheme):</strong> Esquema de cifrado híbrido que combina ECC con cifrado simétrico.</li>
+                <li><strong>EdDSA (Edwards-curve Digital Signature Algorithm):</strong> Una variante moderna de ECDSA que utiliza curvas de Edwards, conocida por su resistencia a ciertos ataques.</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>💡 Adopción de ECC:</strong> Empresas como Apple, Google y agencias gubernamentales han adoptado ampliamente ECC. TLS 1.3, la última versión del protocolo de seguridad web, utiliza principalmente algoritmos basados en curvas elípticas para el intercambio de claves y firmas digitales.
+            </div>
+
+            <h2>Comparación de Algoritmos</h2>
+            <p>Cada algoritmo de clave pública tiene sus propias fortalezas y casos de uso ideales:</p>
+
+            <ul>
+                <li><strong>RSA:</strong> Ampliamente implementado, bien estudiado, útil tanto para cifrado como para firmas. Requiere claves grandes para seguridad a largo plazo.</li>
+                <li><strong>Diffie-Hellman:</strong> Excelente para intercambio de claves, base de muchos protocolos modernos. Requiere autenticación adicional.</li>
+                <li><strong>ElGamal:</strong> Proporciona seguridad semántica, útil en contextos donde la aleatoriedad es importante. El texto cifrado es más grande que el original.</li>
+                <li><strong>ECC:</strong> Máxima eficiencia, ideal para dispositivos con recursos limitados, futuro de la criptografía asimétrica. Implementación más compleja que RSA.</li>
+            </ul>
+
+            <h2>Consideraciones de Seguridad</h2>
+            <p>La seguridad de estos algoritmos depende de varios factores críticos:</p>
+
+            <ul>
+                <li><strong>Tamaño de clave:</strong> Claves más grandes generalmente proporcionan mayor seguridad pero con costo en rendimiento.</li>
+                <li><strong>Generación de números aleatorios:</strong> La calidad de la aleatoriedad utilizada en la generación de claves y operaciones criptográficas es fundamental.</li>
+                <li><strong>Implementación correcta:</strong> Muchos ataques explotan errores de implementación en lugar de debilidades teóricas.</li>
+                <li><strong>Amenazas cuánticas:</strong> Los algoritmos basados en factorización y logaritmo discreto son vulnerables a computadoras cuánticas potentes. La criptografía post-cuántica es un área activa de investigación.</li>
+            </ul>
+
+            <h2>Conclusión</h2>
+            <p>Los algoritmos de clave pública forman la base de la seguridad digital moderna. RSA continúa siendo ampliamente utilizado por su madurez y confiabilidad, mientras que ECC está ganando adopción debido a su eficiencia superior. La elección del algoritmo adecuado depende del contexto específico, los requisitos de rendimiento y las consideraciones de seguridad a largo plazo.</p>
+
+            <p>En las siguientes entradas, exploraremos las ventajas y desventajas de estos sistemas en comparación con la criptografía simétrica, y examinaremos casos prácticos de implementación.</p>
+
+            <div class="references">
+                <h2>Referencias</h2>
+                <p>Hernández, L. (2016). Criptografía de clave asimétrica. En <em>La criptografía</em> (pp. 93-134). Editorial CSIC Consejo Superior de Investigaciones Científicas.</p>
+                <p>Maillo, J. (2017). Cifra asimétrica. En <em>Sistemas seguros de acceso y transmisión de datos</em> (pp. 76-95). RA-MA Editorial.</p>
+                <p>Rivest, R. L., Shamir, A., & Adleman, L. (1978). A method for obtaining digital signatures and public-key cryptosystems. <em>Communications of the ACM</em>, 21(2), 120-126.</p>
+                <p>Koblitz, N. (1987). Elliptic curve cryptosystems. <em>Mathematics of Computation</em>, 48(177), 203-209.</p>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CryptoCore S3. Seguridad en el Desarrollo de Software - Semana 3</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

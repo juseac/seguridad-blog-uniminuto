@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es un Criptosistema de Clave Pública? | CryptoCore S3</title>
+        <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>CryptoCore <span class="highlight">S3</span></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#entradas">Entradas</a>
+                <a href="index.html#about">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Header -->
+    <section class="post-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+            <h1 class="post-title">¿Qué es un Criptosistema de Clave Pública?</h1>
+            <div class="post-meta">
+                <span>📅 Entrada 1</span>
+                <span>⏱️ 5 min de lectura</span>
+                <span>🏷️ Fundamentos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <div class="container">
+            
+            <h2>Introducción</h2>
+            <p>En el mundo digital actual, la protección de la información es fundamental para garantizar la privacidad, la integridad y la autenticidad de las comunicaciones. Los criptosistemas de clave pública, también conocidos como sistemas de cifrado asimétrico, representan una de las innovaciones más importantes en la historia de la criptografía moderna, transformando radicalmente la forma en que protegemos y compartimos información sensible.</p>
+
+            <h2>Definición y Concepto</h2>
+            <p>Un criptosistema de clave pública es un método criptográfico que utiliza un par de claves matemáticamente relacionadas pero distintas: una <strong>clave pública</strong> y una <strong>clave privada</strong>. A diferencia de los sistemas de cifrado simétrico tradicionales, donde una misma clave se utiliza tanto para cifrar como para descifrar información, en los sistemas asimétricos cada usuario posee este par único de claves con funciones complementarias.</p>
+
+            <p>La clave pública, como su nombre indica, puede ser distribuida libremente y es conocida por cualquier persona que desee enviar información cifrada al propietario de la clave. Por el contrario, la clave privada debe mantenerse en secreto absoluto y solo es conocida por su propietario legítimo. La seguridad del sistema se basa en la imposibilidad computacional de derivar la clave privada a partir de la clave pública, a pesar de que ambas están matemáticamente relacionadas.</p>
+
+            <div class="info-box">
+                <strong>💡 Concepto Clave:</strong> En un criptosistema de clave pública, lo que se cifra con una de las claves solo puede descifrarse con la otra clave del par, y viceversa. Esta propiedad fundamental permite tanto el cifrado confidencial como la firma digital.
+            </div>
+
+            <h2>Origen e Historia</h2>
+            <p>El concepto de criptografía de clave pública fue revolucionario cuando se introdujo públicamente en 1976 por Whitfield Diffie y Martin Hellman en su artículo seminal "New Directions in Cryptography". Antes de esta innovación, todos los sistemas criptográficos conocidos públicamente eran simétricos, lo que significaba que tanto el emisor como el receptor debían compartir una clave secreta común, planteando el problema fundamental de la distribución segura de claves.</p>
+
+            <p>Diffie y Hellman propusieron un sistema donde el problema de distribución de claves podría resolverse mediante el uso de funciones matemáticas de un solo sentido: funciones fáciles de calcular en una dirección pero computacionalmente difíciles de invertir. Este concepto llevó al desarrollo del protocolo de intercambio de claves Diffie-Hellman, aunque no constituía un sistema completo de cifrado.</p>
+
+            <p>Poco después, en 1977, Ronald Rivest, Adi Shamir y Leonard Adleman desarrollaron el algoritmo RSA, el primer sistema práctico de criptografía de clave pública que permitía tanto el cifrado como las firmas digitales. RSA se basa en la dificultad de factorizar números enteros grandes en sus factores primos, un problema que sigue siendo computacionalmente intratable para números suficientemente grandes incluso con las computadoras más potentes de la actualidad.</p>
+
+            <h2>Funcionamiento Básico</h2>
+            <p>El funcionamiento de un criptosistema de clave pública se puede explicar mediante dos procesos fundamentales:</p>
+
+            <h3>Cifrado y Descifrado</h3>
+            <p>Cuando el usuario A desea enviar un mensaje confidencial al usuario B utilizando criptografía de clave pública, el proceso funciona de la siguiente manera:</p>
+
+            <ol>
+                <li><strong>Obtención de la clave pública:</strong> A obtiene la clave pública de B, que puede estar disponible en un directorio público o ser proporcionada directamente por B.</li>
+                <li><strong>Cifrado del mensaje:</strong> A utiliza la clave pública de B para cifrar el mensaje mediante un algoritmo de cifrado asimétrico.</li>
+                <li><strong>Transmisión:</strong> El mensaje cifrado se envía a través de un canal de comunicación, que puede ser inseguro sin comprometer la confidencialidad.</li>
+                <li><strong>Descifrado:</strong> B recibe el mensaje cifrado y utiliza su clave privada (que solo B conoce) para descifrarlo y recuperar el mensaje original.</li>
+            </ol>
+
+            <p>Este proceso garantiza la confidencialidad porque solo el poseedor de la clave privada correspondiente puede descifrar los mensajes cifrados con la clave pública asociada. Incluso si un atacante intercepta el mensaje cifrado y conoce la clave pública utilizada, no podrá descifrar el contenido sin la clave privada.</p>
+
+            <h3>Firma Digital</h3>
+            <p>Los criptosistemas de clave pública también permiten implementar firmas digitales, que proporcionan autenticación y no repudio. El proceso de firma funciona de manera inversa al cifrado:</p>
+
+            <ol>
+                <li><strong>Creación de la firma:</strong> El usuario A utiliza su propia clave privada para "firmar" un mensaje o documento.</li>
+                <li><strong>Transmisión:</strong> El mensaje junto con la firma se envía al destinatario B.</li>
+                <li><strong>Verificación:</strong> B utiliza la clave pública de A para verificar la firma, confirmando así que el mensaje proviene efectivamente de A y que no ha sido alterado.</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Importante:</strong> La seguridad de todo el sistema depende de mantener la clave privada en secreto absoluto. Si la clave privada se ve comprometida, un atacante podría descifrar todos los mensajes destinados al propietario legítimo y crear firmas digitales falsas en su nombre.
+            </div>
+
+            <h2>Propiedades Fundamentales</h2>
+            <p>Los criptosistemas de clave pública deben cumplir con varias propiedades esenciales para garantizar su seguridad y funcionalidad:</p>
+
+            <ul>
+                <li><strong>Infactibilidad computacional:</strong> Debe ser computacionalmente imposible derivar la clave privada a partir de la clave pública en un tiempo razonable, incluso con los recursos computacionales más avanzados.</li>
+                <li><strong>Generación de claves:</strong> El proceso de generación del par de claves debe ser eficiente y producir claves únicas con alta entropía.</li>
+                <li><strong>Cifrado y descifrado eficiente:</strong> Aunque más lentos que los algoritmos simétricos, las operaciones de cifrado y descifrado deben ser realizables en tiempos prácticos.</li>
+                <li><strong>Función de un solo sentido:</strong> Las operaciones de cifrado deben ser funciones de un solo sentido con trampa (trapdoor), donde la "trampa" es la clave privada.</li>
+            </ul>
+
+            <h2>Aplicaciones Prácticas</h2>
+            <p>Los criptosistemas de clave pública son fundamentales en innumerables aplicaciones de seguridad digital modernas:</p>
+
+            <ul>
+                <li><strong>Comunicaciones seguras:</strong> Protocolos como TLS/SSL utilizan criptografía de clave pública para establecer conexiones seguras en Internet (HTTPS).</li>
+                <li><strong>Correo electrónico cifrado:</strong> Estándares como PGP (Pretty Good Privacy) y S/MIME permiten enviar correos electrónicos cifrados y firmados digitalmente.</li>
+                <li><strong>Firmas digitales:</strong> Documentos electrónicos, contratos y transacciones financieras utilizan firmas digitales para autenticación y no repudio.</li>
+                <li><strong>Infraestructura de clave pública (PKI):</strong> Sistemas de certificados digitales que verifican la identidad de entidades en línea.</li>
+                <li><strong>Criptomonedas:</strong> Bitcoin y otras criptomonedas utilizan criptografía de clave pública para controlar la propiedad de activos digitales.</li>
+                <li><strong>Autenticación:</strong> Sistemas de inicio de sesión y autenticación multifactor utilizan claves públicas y privadas.</li>
+            </ul>
+
+            <h2>Conclusión</h2>
+            <p>Los criptosistemas de clave pública representan un avance fundamental en la seguridad de la información, resolviendo el problema histórico de la distribución de claves y proporcionando mecanismos robustos para la confidencialidad, autenticación e integridad de datos. Su impacto en el comercio electrónico, las comunicaciones digitales y la seguridad de la información en general no puede ser subestimado.</p>
+
+            <p>Comprender los principios fundamentales de estos sistemas es esencial para cualquier profesional del desarrollo de software que trabaje con aplicaciones que requieran seguridad. En las siguientes entradas, exploraremos en profundidad los algoritmos específicos, sus características técnicas, y cómo implementarlos en la práctica.</p>
+
+            <div class="references">
+                <h2>Referencias</h2>
+                <p>Hernández, L. (2016). Criptografía de clave asimétrica. En <em>La criptografía</em> (pp. 93-134). Editorial CSIC Consejo Superior de Investigaciones Científicas.</p>
+                <p>Maillo, J. (2017). Seguridad de la información. En <em>Sistemas seguros de acceso y transmisión de datos</em> (pp. 76-95). RA-MA Editorial.</p>
+                <p>Diffie, W., & Hellman, M. (1976). New directions in cryptography. <em>IEEE Transactions on Information Theory</em>, 22(6), 644-654.</p>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CryptoCore S3. Seguridad en el Desarrollo de Software - Semana 3</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

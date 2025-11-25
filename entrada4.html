@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso Práctico con Python | CryptoCore S3</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>CryptoCore <span class="highlight">S3</span></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#entradas">Entradas</a>
+                <a href="index.html#about">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Header -->
+    <section class="post-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+            <h1 class="post-title">Caso Práctico: Sistema de Mensajería Cifrada</h1>
+            <div class="post-meta">
+                <span>📅 Entrada 4</span>
+                <span>⏱️ 12 min de lectura</span>
+                <span>🏷️ Práctica</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <div class="container">
+            
+            <h2>Introducción al Caso Práctico</h2>
+            <p>Este caso práctico implementa un <strong>sistema completo de mensajería cifrada end-to-end</strong>, similar a las aplicaciones que usamos diariamente como WhatsApp, Signal o Telegram. A través de Python y Jupyter Notebook, desarrollaremos un sistema funcional que demuestra cómo la criptografía de clave pública protege nuestras comunicaciones digitales en el mundo real.</p>
+
+            <div class="info-box">
+                <strong>💡 ¿Por qué es relevante?</strong> Más de 2 mil millones de personas usan WhatsApp diariamente. Cada mensaje que envían está protegido por la misma arquitectura criptográfica que implementaremos en este caso práctico. Comprender estos fundamentos es esencial para cualquier desarrollador de software moderno.
+            </div>
+
+            <h2>Algoritmos Utilizados en el Sistema</h2>
+            <p>Nuestro sistema implementa una <strong>arquitectura híbrida</strong> que combina lo mejor de la criptografía simétrica y asimétrica:</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+                <thead>
+                    <tr style="background: var(--bg-card); border-bottom: 2px solid var(--primary-color);">
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Algoritmo</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Función en el Sistema</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Por qué se usa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>RSA-2048</strong></td>
+                        <td style="padding: 12px;">Intercambio de claves de sesión</td>
+                        <td style="padding: 12px;">Estándar actual, seguro hasta 2030+</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>AES-256</strong></td>
+                        <td style="padding: 12px;">Cifrado del contenido de mensajes</td>
+                        <td style="padding: 12px;">Extremadamente rápido, usado por NSA</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>SHA-256</strong></td>
+                        <td style="padding: 12px;">Hashing para firmas digitales</td>
+                        <td style="padding: 12px;">Sin colisiones conocidas, muy confiable</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>PKCS#1 OAEP</strong></td>
+                        <td style="padding: 12px;">Padding seguro para RSA</td>
+                        <td style="padding: 12px;">Previene ataques de oráculo de padding</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Preparación del Entorno</h2>
+            <p>El sistema está desarrollado en <strong>Python 3.14.0</strong> utilizando Jupyter Notebook en Visual Studio Code. Esta combinación proporciona un entorno interactivo ideal para aprender y experimentar con criptografía.</p>
+
+            <h3>Requisitos del Sistema</h3>
+            <ul>
+                <li><strong>Python 3.14.0</strong> (o superior)</li>
+                <li><strong>Visual Studio Code</strong> con extensión de Jupyter</li>
+                <li><strong>Bibliotecas:</strong> <code>cryptography</code> y <code>pycryptodome</code></li>
+            </ul>
+
+            <h3>Instalación</h3>
+            <pre><code># Instalar dependencias
+pip install cryptography pycryptodome</code></pre>
+
+            <h2>Arquitectura del Sistema: 5 Componentes Principales</h2>
+
+            <h3>1. Clase Usuario - Identidad Criptográfica</h3>
+            <p>Cada usuario del sistema tiene una <strong>identidad criptográfica única</strong> representada por su par de claves RSA-2048. Esta clase gestiona:</p>
+
+            <ul>
+                <li>Generación del par de claves RSA (pública y privada)</li>
+                <li>Exportación de clave pública para compartir con otros</li>
+                <li>Directorio de contactos con sus claves públicas</li>
+                <li>Almacenamiento seguro de claves en archivos PEM</li>
+            </ul>
+
+            <pre><code>class Usuario:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.clave_privada = None
+        self.clave_publica = None
+        self.contactos = {}
+    
+    def generar_claves(self):
+        """Genera par de claves RSA-2048"""
+        key = RSA.generate(2048)
+        self.clave_privada = key
+        self.clave_publica = key.publickey()
+    
+    def exportar_clave_publica(self):
+        """Exporta clave pública en formato PEM"""
+        return self.clave_publica.export_key().decode('utf-8')
+    
+    def importar_contacto(self, nombre_contacto, clave_publica_pem):
+        """Importa clave pública de un contacto"""
+        clave = RSA.import_key(clave_publica_pem.encode('utf-8'))
+        self.contactos[nombre_contacto] = clave</code></pre>
+
+            <h3>2. Clase SistemaMensajeria - Cifrado Híbrido</h3>
+            <p>El núcleo del sistema implementa el <strong>cifrado híbrido</strong> que combina RSA y AES. Este es el mismo enfoque usado por WhatsApp, Signal y prácticamente todas las aplicaciones de mensajería modernas.</p>
+
+            <h4>Proceso de Cifrado (4 pasos)</h4>
+            <ol>
+                <li><strong>Generar clave de sesión AES-256</strong> aleatoria (única para cada mensaje)</li>
+                <li><strong>Cifrar el mensaje</strong> con la clave de sesión AES (rápido y eficiente)</li>
+                <li><strong>Cifrar la clave de sesión</strong> con RSA público del destinatario</li>
+                <li><strong>Firmar el mensaje original</strong> con RSA privado del emisor (SHA-256)</li>
+            </ol>
+
+            <pre><code>def cifrar_mensaje(self, destinatario, mensaje):
+    # 1. Generar clave de sesión AES
+    clave_sesion = Fernet.generate_key()
+    fernet = Fernet(clave_sesion)
+    
+    # 2. Cifrar mensaje con AES
+    mensaje_cifrado = fernet.encrypt(mensaje.encode('utf-8'))
+    
+    # 3. Cifrar clave de sesión con RSA del destinatario
+    clave_publica_dest = self.usuario.contactos[destinatario]
+    cipher_rsa = PKCS1_OAEP.new(clave_publica_dest)
+    clave_cifrada = cipher_rsa.encrypt(clave_sesion)
+    
+    # 4. Firmar mensaje original
+    hash_mensaje = SHA256.new(mensaje.encode('utf-8'))
+    firma = pkcs1_15.new(self.usuario.clave_privada).sign(hash_mensaje)
+    
+    return paquete_cifrado</code></pre>
+
+            <h4>Proceso de Descifrado (3 pasos)</h4>
+            <ol>
+                <li><strong>Descifrar la clave de sesión</strong> con RSA privado propio</li>
+                <li><strong>Descifrar el mensaje</strong> con la clave de sesión AES</li>
+                <li><strong>Verificar la firma digital</strong> del emisor</li>
+            </ol>
+
+            <div class="info-box">
+                <strong>💡 Ventaja clave del sistema híbrido:</strong> RSA se usa solo para intercambiar la pequeña clave de sesión (32 bytes), mientras que AES cifra el contenido completo del mensaje. Esto combina la seguridad de RSA con la velocidad de AES.
+            </div>
+
+            <h2>Demostración Completa en 5 Fases</h2>
+            <p>El notebook ejecuta una demostración interactiva que simula una conversación real entre dos usuarios:</p>
+
+            <h3>Fase 1: Registro de Usuarios</h3>
+            <p>Alice y Bob instalan la aplicación y generan sus identidades criptográficas:</p>
+
+            <pre><code>alice = Usuario("Alice")
+alice.generar_claves()
+alice.guardar_claves()
+
+bob = Usuario("Bob")
+bob.generar_claves()
+bob.guardar_claves()</code></pre>
+
+            <p><strong>Salida esperada:</strong></p>
+            <pre><code>Generando claves RSA-2048 para Alice...
+  Claves generadas exitosamente
+  Modulo (n): 617 digitos
+  Claves guardadas en 'claves/'
+
+Generando claves RSA-2048 para Bob...
+  Claves generadas exitosamente
+  Modulo (n): 617 digitos
+  Claves guardadas en 'claves/'</code></pre>
+
+            <h3>Fase 2: Intercambio de Claves Públicas</h3>
+            <p>Alice y Bob intercambian sus claves públicas. En una app real, esto ocurre mediante:</p>
+            <ul>
+                <li>Escaneo de código QR</li>
+                <li>Servidor de directorio de claves</li>
+                <li>Intercambio en persona (máxima seguridad)</li>
+            </ul>
+
+            <pre><code>alice.importar_contacto("Bob", bob.exportar_clave_publica())
+bob.importar_contacto("Alice", alice.exportar_clave_publica())</code></pre>
+
+            <h3>Fase 3: Envío de Mensaje Cifrado</h3>
+            <p>Alice envía un mensaje confidencial a Bob:</p>
+
+            <pre><code>sistema_alice = SistemaMensajeria(alice)
+mensaje = "Reunion confidencial a las 15:00. Proyecto CryptoCore S3"
+paquete = sistema_alice.cifrar_mensaje("Bob", mensaje)</code></pre>
+
+            <p><strong>Proceso interno (visible en el notebook):</strong></p>
+            <pre><code>Cifrando mensaje para Bob...
+  [1/4] Clave de sesion AES generada
+  [2/4] Mensaje cifrado con AES-256
+  [3/4] Clave de sesion cifrada con RSA-2048
+  [4/4] Firma digital generada con SHA-256
+
+  Paquete cifrado creado exitosamente
+Tamano del paquete: 1247 bytes</code></pre>
+
+            <h3>Fase 4: Recepción y Descifrado</h3>
+            <p>Bob recibe el mensaje cifrado y lo descifra con su clave privada:</p>
+
+            <pre><code>sistema_bob = SistemaMensajeria(bob)
+resultado = sistema_bob.descifrar_mensaje(paquete)</code></pre>
+
+            <p><strong>Salida:</strong></p>
+            <pre><code>Descifrando mensaje de Alice...
+  [1/3] Clave de sesion descifrada
+  [2/3] Mensaje descifrado
+  [3/3] Firma verificada correctamente
+
+MENSAJE RECIBIDO:
+  De: Alice
+  Timestamp: 2025-11-24T22:15:30.123456
+  Firma valida: SI
+
+  Contenido: 'Reunion confidencial a las 15:00. Proyecto CryptoCore S3'</code></pre>
+
+            <h3>Fase 5: Simulación de Ataque Man-in-the-Middle</h3>
+            <p>Un atacante intercepta el mensaje y lo modifica. El sistema detecta la alteración automáticamente:</p>
+
+            <pre><code>paquete_modificado = paquete.copy()
+paquete_modificado['mensaje_cifrado'] = base64.b64encode(b"MENSAJE ALTERADO")
+
+try:
+    sistema_bob.descifrar_mensaje(paquete_modificado)
+except Exception:
+    print("ATAQUE DETECTADO Y BLOQUEADO")</code></pre>
+
+            <p><strong>Resultado:</strong></p>
+            <pre><code>ATAQUE DETECTADO Y BLOQUEADO
+  El sistema rechazo automaticamente el mensaje alterado
+  Razon: Firma digital invalida</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ Seguridad demostrada:</strong> Incluso con acceso completo al mensaje cifrado, un atacante no puede modificar el contenido sin ser detectado. La firma digital garantiza la integridad.
+            </div>
+
+            <h2>Experimento: Prueba de Rendimiento</h2>
+            <p>El notebook incluye un experimento que mide el rendimiento del sistema con diferentes tamaños de mensaje:</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+                <thead>
+                    <tr style="background: var(--bg-card); border-bottom: 2px solid var(--primary-color);">
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Tamaño (caracteres)</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Tiempo Cifrado (ms)</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Tiempo Descifrado (ms)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;">100</td>
+                        <td style="padding: 12px;">8.45</td>
+                        <td style="padding: 12px;">7.23</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;">500</td>
+                        <td style="padding: 12px;">9.12</td>
+                        <td style="padding: 12px;">7.89</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;">1,000</td>
+                        <td style="padding: 12px;">10.34</td>
+                        <td style="padding: 12px;">8.45</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;">5,000</td>
+                        <td style="padding: 12px;">15.67</td>
+                        <td style="padding: 12px;">12.34</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Conclusiones del experimento:</strong></p>
+            <ul>
+                <li>El tiempo de cifrado crece <strong>linealmente</strong> con el tamaño del mensaje</li>
+                <li>AES (simétrico) es extremadamente eficiente incluso para mensajes largos</li>
+                <li>RSA solo se usa para la pequeña clave de sesión, por lo que no afecta el rendimiento general</li>
+                <li>El sistema puede procesar mensajes de texto de cualquier longitud práctica en milisegundos</li>
+            </ul>
+
+            <h2>¿Dónde se Usa Este Sistema en el Mundo Real?</h2>
+            <p>La arquitectura implementada en este caso práctico es utilizada por las aplicaciones de mensajería más populares del mundo:</p>
+
+            <h3>WhatsApp (Meta)</h3>
+            <ul>
+                <li><strong>Usuarios:</strong> Más de 2 mil millones activos</li>
+                <li><strong>Protocolo:</strong> Signal Protocol (similar a nuestra implementación)</li>
+                <li><strong>Algoritmos:</strong> Curve25519 (ECDH), AES-256, HMAC-SHA256</li>
+                <li><strong>Cifrado:</strong> End-to-end por defecto desde 2016</li>
+            </ul>
+
+            <h3>Signal</h3>
+            <ul>
+                <li><strong>Reconocimiento:</strong> Estándar de oro en privacidad</li>
+                <li><strong>Innovación:</strong> Desarrolló el protocolo que WhatsApp adoptó</li>
+                <li><strong>Código:</strong> Completamente open source</li>
+                <li><strong>Recomendado por:</strong> Edward Snowden, Bruce Schneier</li>
+            </ul>
+
+            <h3>Telegram (Chats Secretos)</h3>
+            <ul>
+                <li><strong>Protocolo:</strong> MTProto 2.0</li>
+                <li><strong>Algoritmos:</strong> RSA-2048, AES-256 en modo IGE</li>
+                <li><strong>Característica única:</strong> Perfect Forward Secrecy opcional</li>
+            </ul>
+
+            <h3>iMessage (Apple)</h3>
+            <ul>
+                <li><strong>Integración:</strong> Cifrado E2E en ecosistema Apple</li>
+                <li><strong>Algoritmos:</strong> RSA-1280, ECDSA, AES-128</li>
+                <li><strong>Peculiaridad:</strong> Backups en iCloud no están cifrados E2E</li>
+            </ul>
+
+            <h2>Propiedades de Seguridad Garantizadas</h2>
+            <p>El sistema implementado garantiza las <strong>cuatro propiedades fundamentales</strong> de seguridad en comunicaciones:</p>
+
+            <h3>1. Confidencialidad</h3>
+            <p><strong>Garantía:</strong> Solo Alice y Bob pueden leer el contenido del mensaje.<br>
+            <strong>Cómo:</strong> El mensaje está cifrado con una clave de sesión AES que solo el destinatario puede descifrar con su clave privada RSA.</p>
+
+            <h3>2. Autenticación</h3>
+            <p><strong>Garantía:</strong> Bob puede verificar que el mensaje realmente proviene de Alice.<br>
+            <strong>Cómo:</strong> La firma digital se genera con la clave privada de Alice, y solo puede ser verificada con su clave pública.</p>
+
+            <h3>3. Integridad</h3>
+            <p><strong>Garantía:</strong> Cualquier modificación del mensaje es detectada automáticamente.<br>
+            <strong>Cómo:</strong> La firma digital incluye un hash SHA-256 del mensaje original. Cualquier cambio invalida la firma.</p>
+
+            <h3>4. No Repudio</h3>
+            <p><strong>Garantía:</strong> Alice no puede negar posteriormente haber enviado el mensaje.<br>
+            <strong>Cómo:</strong> Solo Alice posee la clave privada que generó la firma, proporcionando evidencia criptográfica de autoría.</p>
+
+            <h2>Ejecutar el Notebook</h2>
+            <p>Para ejecutar el caso práctico completo:</p>
+
+            <ol>
+                <li><strong>Descargar:</strong> <a href="https://colab.research.google.com/drive/1rbJIBHacDDy9vdewqY3mXnHT7CyxgL_J?usp=sharing" target="_blank" rel="noopener noreferrer"><code>mensajeria_cifrada.ipynb</code></a></li>
+                <li><strong>Abrir en VSCode</strong> con la extensión de Jupyter instalada</li>
+                <li><strong>Seleccionar kernel:</strong> Python 3.14.0</li>
+                <li><strong>Ejecutar celdas:</strong> Presionar <code>Shift+Enter</code> en cada celda secuencialmente</li>
+                <li><strong>Observar resultados:</strong> Cada celda muestra su salida inmediatamente</li>
+                <li><strong>Experimentar:</strong> Modificar parámetros y volver a ejecutar</li>
+            </ol>
+
+            <div class="info-box">
+                <strong>💡 Tip de aprendizaje:</strong> Ejecuta el notebook celda por celda, leyendo los outputs y asegurándote de entender cada paso antes de continuar. La naturaleza interactiva de Jupyter permite experimentar modificando el código y viendo los resultados inmediatamente.
+            </div>
+
+            <h2>Extensiones y Mejoras Posibles</h2>
+            <p>Para convertir este prototipo educativo en un sistema de producción, considera implementar:</p>
+
+            <h3>Mejoras de Seguridad</h3>
+            <ul>
+                <li><strong>Perfect Forward Secrecy (PFS):</strong> Implementar Double Ratchet como Signal</li>
+                <li><strong>Claves efímeras:</strong> Generar nuevas claves para cada sesión</li>
+                <li><strong>Protección de metadatos:</strong> Ofuscar patrones de comunicación</li>
+                <li><strong>Hardware seguro:</strong> Almacenar claves privadas en HSM o Secure Enclave</li>
+            </ul>
+
+            <h3>Funcionalidades Adicionales</h3>
+            <ul>
+                <li><strong>Chat grupal:</strong> Distribuir claves entre múltiples participantes</li>
+                <li><strong>Mensajes multimedia:</strong> Cifrar imágenes, videos y documentos</li>
+                <li><strong>Verificación de identidad:</strong> Códigos QR con fingerprints de claves</li>
+                <li><strong>Mensajes efímeros:</strong> Auto-destrucción después de cierto tiempo</li>
+            </ul>
+
+            <h3>Infraestructura</h3>
+            <ul>
+                <li><strong>Backend:</strong> Servidor que almacena/retransmite paquetes cifrados</li>
+                <li><strong>Base de datos:</strong> Almacenar solo claves públicas y metadatos mínimos</li>
+                <li><strong>API REST:</strong> Interfaz para apps móviles y web</li>
+                <li><strong>Multi-dispositivo:</strong> Sincronización segura entre dispositivos del mismo usuario</li>
+            </ul>
+
+            <h2>Consideraciones de Seguridad Importantes</h2>
+
+            <div class="warning-box">
+                <strong>⚠️ Advertencia Crítica:</strong> Este código es educativo y demuestra conceptos fundamentales. Un sistema de producción requiere:
+                <ul style="margin-top: 10px;">
+                    <li>Auditorías de seguridad profesionales</li>
+                    <li>Manejo robusto de errores y excepciones</li>
+                    <li>Protección contra ataques de canal lateral</li>
+                    <li>Cumplimiento con regulaciones (GDPR, etc.)</li>
+                    <li>Pruebas exhaustivas de penetración</li>
+                </ul>
+                <strong>NUNCA</strong> uses código "casero" para proteger datos realmente sensibles sin revisión de expertos en ciberseguridad.
+            </div>
+
+            <h2>Recursos y Referencias</h2>
+            <p>Para profundizar en los conceptos presentados:</p>
+
+            <ul>
+                <li><strong>Signal Protocol:</strong> <a href="https://signal.org/docs/" style="color: var(--primary-color);">signal.org/docs</a></li>
+                <li><strong>WhatsApp Security:</strong> <a href="https://www.whatsapp.com/security/" style="color: var(--primary-color);">whatsapp.com/security</a></li>
+                <li><strong>Cryptography Library:</strong> <a href="https://cryptography.io/" style="color: var(--primary-color);">cryptography.io</a></li>
+                <li><strong>PyCryptodome:</strong> <a href="https://www.pycryptodome.org/" style="color: var(--primary-color);">pycryptodome.org</a></li>
+            </ul>
+
+            <h2>Conclusión</h2>
+            <p>Este caso práctico demuestra cómo los conceptos teóricos de criptografía de clave pública se aplican para resolver problemas reales de seguridad en comunicaciones digitales. La implementación en Python con Jupyter Notebook proporciona un entorno interactivo ideal para comprender cada paso del proceso, desde la generación de claves hasta la detección de ataques.</p>
+
+            <p>El sistema híbrido RSA + AES no es solo una curiosidad académica: es la arquitectura fundamental que protege las conversaciones de miles de millones de personas cada día. Al implementarlo y experimentar con él, obtienes una comprensión práctica de cómo funciona la seguridad en las aplicaciones modernas.</p>
+
+            <p>La capacidad de implementar, entender y analizar sistemas criptográficos es una habilidad invaluable en el desarrollo de software actual. Ya sea que trabajes en fintech, salud digital, IoT o cualquier aplicación que maneje información sensible, estos fundamentos serán la base de tu arquitectura de seguridad.</p>
+
+            <div class="references">
+                <h2>Referencias</h2>
+                <p>Hernández, L. (2016). Criptografía de clave asimétrica. En <em>La criptografía</em> (pp. 93-134). Editorial CSIC Consejo Superior de Investigaciones Científicas.</p>
+                <p>Maillo, J. (2017). Seguridad de la información. En <em>Sistemas seguros de acceso y transmisión de datos</em> (pp. 76-102). RA-MA Editorial.</p>
+                <p>Marlinspike, M., & Perrin, T. (2016). <em>The Double Ratchet Algorithm</em>. Signal Specifications.</p>
+                <p>WhatsApp. (2023). <em>WhatsApp Encryption Overview</em>. Technical White Paper.</p>
+                <p>Python Software Foundation. (2024). <em>Cryptography Library Documentation</em>.</p>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CryptoCore S3. Seguridad en el Desarrollo de Software - Semana 3</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

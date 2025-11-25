@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventajas, Desventajas y Diferencias | CryptoCore S3</title>
+        <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>CryptoCore <span class="highlight">S3</span></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#entradas">Entradas</a>
+                <a href="index.html#about">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Header -->
+    <section class="post-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+            <h1 class="post-title">Ventajas, Desventajas y Diferencias con Criptografía Simétrica</h1>
+            <div class="post-meta">
+                <span>📅 Entrada 3</span>
+                <span>⏱️ 6 min de lectura</span>
+                <span>🏷️ Comparativa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <div class="container">
+            
+            <h2>Introducción</h2>
+            <p>La elección entre criptografía simétrica y asimétrica es una decisión fundamental en el diseño de sistemas seguros. Cada enfoque tiene características, fortalezas y limitaciones distintas que los hacen adecuados para diferentes escenarios. Esta entrada proporciona un análisis exhaustivo de ambos paradigmas, explorando sus ventajas, desventajas y las diferencias clave que los distinguen.</p>
+
+            <h2>Criptografía Simétrica: Visión General</h2>
+            <p>La criptografía simétrica, también conocida como criptografía de clave secreta o clave privada, utiliza la misma clave tanto para cifrar como para descifrar información. Esta clave debe ser compartida y mantenida en secreto entre todas las partes que desean comunicarse de forma segura. Los algoritmos simétricos más conocidos incluyen AES (Advanced Encryption Standard), DES (Data Encryption Standard), 3DES, Blowfish y ChaCha20.</p>
+
+            <p>El proceso es conceptualmente simple: el emisor utiliza la clave compartida para cifrar el mensaje mediante un algoritmo simétrico, transmite el texto cifrado, y el receptor utiliza la misma clave para descifrar y recuperar el mensaje original. La seguridad del sistema depende completamente de mantener la clave secreta fuera del alcance de adversarios.</p>
+
+            <h2>Ventajas de la Criptografía de Clave Pública</h2>
+            <p>Los criptosistemas de clave pública ofrecen numerosas ventajas que los hacen indispensables en la infraestructura de seguridad moderna:</p>
+
+            <h3>1. Eliminación del Problema de Distribución de Claves</h3>
+            <p>La ventaja más significativa de la criptografía asimétrica es que resuelve el problema fundamental de distribución de claves. En sistemas simétricos, establecer comunicación segura entre dos partes que nunca se han conocido previamente requiere encontrar un canal seguro para intercambiar la clave secreta compartida. Con criptografía de clave pública, las claves públicas pueden distribuirse libremente sin comprometer la seguridad, ya que solo la clave privada necesita mantenerse secreta.</p>
+
+            <p>Esta característica es especialmente valiosa en Internet, donde millones de usuarios necesitan establecer comunicaciones seguras con servidores y entre sí sin haber compartido previamente secretos. Los protocolos SSL/TLS que aseguran las conexiones HTTPS son un ejemplo perfecto de esta aplicación.</p>
+
+            <h3>2. Escalabilidad en Sistemas con Múltiples Usuarios</h3>
+            <p>En un sistema con N usuarios que utilizan criptografía simétrica, se requieren N(N-1)/2 claves diferentes para permitir comunicación segura entre cada par de usuarios. Para 100 usuarios, esto significa gestionar 4,950 claves distintas. En contraste, con criptografía de clave pública, cada usuario solo necesita mantener su propia clave privada y puede obtener las claves públicas de otros usuarios cuando las necesite.</p>
+
+            <p>Esta reducción drástica en la complejidad de gestión de claves hace que los sistemas asimétricos sean mucho más escalables para grandes poblaciones de usuarios.</p>
+
+            <h3>3. Firmas Digitales y No Repudio</h3>
+            <p>Los criptosistemas de clave pública permiten implementar firmas digitales, lo cual es imposible con criptografía simétrica pura. Una firma digital proporciona:</p>
+
+            <ul>
+                <li><strong>Autenticación:</strong> Verifica la identidad del emisor del mensaje.</li>
+                <li><strong>Integridad:</strong> Garantiza que el mensaje no ha sido alterado en tránsito.</li>
+                <li><strong>No repudio:</strong> El emisor no puede negar posteriormente haber firmado el mensaje.</li>
+            </ul>
+
+            <p>Estas propiedades son fundamentales para documentos legales electrónicos, transacciones financieras, contratos digitales y cualquier situación donde se requiera responsabilidad legal.</p>
+
+            <h3>4. Facilitación de la Infraestructura de Clave Pública (PKI)</h3>
+            <p>La criptografía asimétrica permite la creación de sistemas de Infraestructura de Clave Pública (PKI), donde autoridades de certificación confiables emiten certificados digitales que vinculan identidades con claves públicas. Este ecosistema permite verificar la autenticidad de sitios web, correos electrónicos firmados, aplicaciones de software y documentos digitales a gran escala.</p>
+
+            <h3>5. Separación de Responsabilidades</h3>
+            <p>La distinción entre claves públicas y privadas permite implementar arquitecturas de seguridad donde diferentes entidades controlan diferentes aspectos del sistema. Por ejemplo, un servidor web puede tener su clave privada almacenada en un módulo de seguridad de hardware (HSM) mientras que su clave pública se distribuye ampliamente en certificados.</p>
+
+            <h2>Desventajas de la Criptografía de Clave Pública</h2>
+            <p>A pesar de sus numerosas ventajas, los sistemas asimétricos también presentan limitaciones significativas:</p>
+
+            <h3>1. Velocidad de Procesamiento Significativamente Menor</h3>
+            <p>La principal desventaja de la criptografía de clave pública es su velocidad de procesamiento. Las operaciones de cifrado y descifrado asimétrico son típicamente entre 100 y 1000 veces más lentas que las operaciones simétricas equivalentes. Esta diferencia se debe a la complejidad de las operaciones matemáticas subyacentes (exponenciación modular, operaciones en curvas elípticas) comparadas con las operaciones de sustitución y permutación utilizadas en algoritmos simétricos.</p>
+
+            <p>Por ejemplo, AES puede cifrar varios gigabytes de datos por segundo en hardware moderno, mientras que RSA puede procesar solo unos pocos megabytes por segundo con la misma potencia de cómputo.</p>
+
+            <h3>2. Tamaño de Claves y Texto Cifrado Mayor</h3>
+            <p>Para proporcionar niveles de seguridad comparables, las claves asimétricas deben ser significativamente más grandes que las simétricas. Una clave RSA de 2048 bits proporciona seguridad aproximadamente equivalente a una clave AES de 128 bits. Además, algunos algoritmos asimétricos como ElGamal producen textos cifrados que son significativamente más grandes que el mensaje original, lo cual puede ser problemático en entornos con restricciones de ancho de banda o almacenamiento.</p>
+
+            <h3>3. Complejidad de Implementación</h3>
+            <p>Los algoritmos asimétricos son matemáticamente más complejos que los simétricos, lo que aumenta la probabilidad de errores de implementación. Ataques de canal lateral (timing attacks, power analysis) son particularmente problemáticos para implementaciones de criptografía asimétrica. Implementar correctamente RSA, ECC o algoritmos relacionados requiere considerable experiencia criptográfica y atención meticulosa a detalles de seguridad.</p>
+
+            <h3>4. Vulnerabilidad a Computación Cuántica</h3>
+            <p>Los algoritmos asimétricos más utilizados actualmente (RSA, Diffie-Hellman, ECC) son teóricamente vulnerables a ataques de computadoras cuánticas suficientemente potentes utilizando el algoritmo de Shor. Aunque las computadoras cuánticas prácticas capaces de romper estos sistemas aún no existen, la amenaza potencial ha motivado el desarrollo activo de criptografía post-cuántica.</p>
+
+            <h3>5. Dependencia de Autoridades de Certificación</h3>
+            <p>Aunque PKI es una fortaleza, también introduce puntos únicos de fallo. Si una autoridad de certificación se ve comprometida o emite certificados fraudulentos, la seguridad de todos los sistemas que confían en esa CA puede verse comprometida. Varios incidentes de alto perfil han demostrado que este no es un riesgo meramente teórico.</p>
+
+            <h2>Ventajas de la Criptografía Simétrica</h2>
+            <p>Para proporcionar una comparación equilibrada, es importante reconocer las ventajas de la criptografía simétrica:</p>
+
+            <ul>
+                <li><strong>Velocidad excepcional:</strong> Los algoritmos simétricos son extremadamente rápidos, permitiendo cifrado en tiempo real de grandes volúmenes de datos.</li>
+                <li><strong>Eficiencia de recursos:</strong> Requieren menos potencia de procesamiento, memoria y energía, haciéndolos ideales para dispositivos con recursos limitados.</li>
+                <li><strong>Claves más pequeñas:</strong> Proporcionan alta seguridad con claves relativamente cortas (128, 192 o 256 bits).</li>
+                <li><strong>Simplicidad conceptual:</strong> Son más fáciles de entender e implementar correctamente.</li>
+                <li><strong>Resistencia cuántica:</strong> Algoritmos simétricos como AES mantienen gran parte de su seguridad incluso contra ataques cuánticos (aunque requieren claves más grandes).</li>
+            </ul>
+
+            <h2>Diferencias Clave: Tabla Comparativa</h2>
+            <p>La siguiente tabla resume las diferencias fundamentales entre ambos paradigmas criptográficos:</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+                <thead>
+                    <tr style="background: var(--bg-card); border-bottom: 2px solid var(--primary-color);">
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Característica</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Criptografía Simétrica</th>
+                        <th style="padding: 15px; text-align: left; color: var(--primary-color);">Criptografía Asimétrica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Claves utilizadas</strong></td>
+                        <td style="padding: 12px;">Una misma clave para cifrar y descifrar</td>
+                        <td style="padding: 12px;">Par de claves: pública y privada</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Velocidad</strong></td>
+                        <td style="padding: 12px;">Muy rápida (100-1000x más rápida)</td>
+                        <td style="padding: 12px;">Considerablemente más lenta</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Tamaño de clave</strong></td>
+                        <td style="padding: 12px;">128-256 bits típicamente</td>
+                        <td style="padding: 12px;">2048-4096 bits (RSA), 256-512 bits (ECC)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Distribución de claves</strong></td>
+                        <td style="padding: 12px;">Requiere canal seguro previo</td>
+                        <td style="padding: 12px;">Clave pública puede distribuirse libremente</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Escalabilidad</strong></td>
+                        <td style="padding: 12px;">N(N-1)/2 claves para N usuarios</td>
+                        <td style="padding: 12px;">N pares de claves para N usuarios</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Firmas digitales</strong></td>
+                        <td style="padding: 12px;">No soportadas nativamente</td>
+                        <td style="padding: 12px;">Soportadas nativamente</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>No repudio</strong></td>
+                        <td style="padding: 12px;">Difícil de lograr</td>
+                        <td style="padding: 12px;">Fácil de implementar</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Uso principal</strong></td>
+                        <td style="padding: 12px;">Cifrado masivo de datos</td>
+                        <td style="padding: 12px;">Intercambio de claves, firmas, autenticación</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Ejemplos</strong></td>
+                        <td style="padding: 12px;">AES, 3DES, ChaCha20</td>
+                        <td style="padding: 12px;">RSA, ECC, ElGamal</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0, 243, 255, 0.1);">
+                        <td style="padding: 12px;"><strong>Complejidad</strong></td>
+                        <td style="padding: 12px;">Relativamente simple</td>
+                        <td style="padding: 12px;">Matemáticamente compleja</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Sistemas Híbridos: Lo Mejor de Ambos Mundos</h2>
+            <p>Dadas las fortalezas complementarias de ambos enfoques, la mayoría de los sistemas de seguridad modernos utilizan criptografía híbrida, que combina ambos paradigmas para maximizar eficiencia y seguridad.</p>
+
+            <h3>Funcionamiento de Sistemas Híbridos</h3>
+            <p>Un sistema híbrido típico funciona de la siguiente manera:</p>
+
+            <ol>
+                <li><strong>Generación de clave de sesión:</strong> Se genera aleatoriamente una clave simétrica temporal (llamada clave de sesión).</li>
+                <li><strong>Cifrado de datos:</strong> El contenido real del mensaje se cifra utilizando esta clave de sesión con un algoritmo simétrico rápido como AES.</li>
+                <li><strong>Cifrado de la clave de sesión:</strong> La clave de sesión se cifra utilizando la clave pública del destinatario mediante un algoritmo asimétrico.</li>
+                <li><strong>Transmisión:</strong> Se envían tanto los datos cifrados simétricamente como la clave de sesión cifrada asimétricamente.</li>
+                <li><strong>Descifrado:</strong> El destinatario descifra la clave de sesión usando su clave privada, luego usa la clave de sesión para descifrar el mensaje.</li>
+            </ol>
+
+            <div class="info-box">
+                <strong>💡 Ejemplo Real:</strong> SSL/TLS utiliza este enfoque híbrido. Durante el handshake inicial, se utiliza criptografía asimétrica (RSA o ECDHE) para intercambiar de forma segura una clave de sesión. Una vez establecida la clave de sesión, toda la comunicación posterior se cifra usando AES u otro algoritmo simétrico rápido.
+            </div>
+
+            <h2>Casos de Uso Apropiados</h2>
+            <p>La elección entre criptografía simétrica y asimétrica (o una combinación) depende del contexto específico:</p>
+
+            <h3>Usar Criptografía Simétrica cuando:</h3>
+            <ul>
+                <li>Se necesita cifrar grandes volúmenes de datos</li>
+                <li>Las partes ya comparten una clave secreta</li>
+                <li>El rendimiento es crítico</li>
+                <li>Se trabaja con dispositivos de recursos limitados</li>
+                <li>Ejemplos: cifrado de disco completo, VPNs, cifrado de bases de datos</li>
+            </ul>
+
+            <h3>Usar Criptografía Asimétrica cuando:</h3>
+            <ul>
+                <li>Se necesita establecer comunicación segura sin contacto previo</li>
+                <li>Se requieren firmas digitales</li>
+                <li>Se necesita no repudio</li>
+                <li>La escalabilidad es importante</li>
+                <li>Ejemplos: SSL/TLS handshake, firma de correos electrónicos, autenticación de software</li>
+            </ul>
+
+            <h3>Usar Sistemas Híbridos cuando:</h3>
+            <ul>
+                <li>Se necesita comunicación segura a gran escala en Internet</li>
+                <li>Se requiere equilibrio entre seguridad y rendimiento</li>
+                <li>Se necesitan tanto confidencialidad como autenticación</li>
+                <li>Ejemplos: HTTPS, correo cifrado PGP, aplicaciones de mensajería segura</li>
+            </ul>
+
+            <h2>Consideraciones de Implementación</h2>
+            <p>Al implementar sistemas criptográficos, los desarrolladores deben considerar:</p>
+
+            <ul>
+                <li><strong>Nunca implementar criptografía desde cero:</strong> Utilizar bibliotecas criptográficas bien establecidas y auditadas.</li>
+                <li><strong>Gestión apropiada de claves:</strong> Implementar rotación de claves, almacenamiento seguro y procedimientos de revocación.</li>
+                <li><strong>Selección de parámetros adecuados:</strong> Usar tamaños de clave recomendados por estándares actuales.</li>
+                <li><strong>Actualizaciones regulares:</strong> Mantener bibliotecas criptográficas actualizadas para proteger contra vulnerabilidades conocidas.</li>
+                <li><strong>Análisis de amenazas:</strong> Evaluar el modelo de amenazas específico y seleccionar controles criptográficos apropiados.</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Error Común:</strong> Un error frecuente es usar criptografía asimétrica para cifrar grandes cantidades de datos directamente. Esto es ineficiente y, en algunos casos, inseguro. Siempre se debe usar un enfoque híbrido para grandes volúmenes de datos.
+            </div>
+
+            <h2>Conclusión</h2>
+            <p>La criptografía simétrica y asimétrica no son tecnologías competidoras, sino complementarias. Cada una tiene fortalezas únicas que las hacen indispensables en diferentes contextos. La criptografía simétrica ofrece velocidad y eficiencia incomparables para cifrado de datos, mientras que la criptografía asimétrica proporciona soluciones elegantes para distribución de claves, autenticación y firmas digitales.</p>
+
+            <p>Los sistemas de seguridad modernos reconocen estas complementariedades y utilizan enfoques híbridos que aprovechan lo mejor de ambos mundos. Comprender las ventajas, desventajas y casos de uso apropiados de cada paradigma es esencial para diseñar e implementar sistemas seguros y eficientes.</p>
+
+            <p>En la próxima entrada, pasaremos de la teoría a la práctica, implementando un sistema de cifrado asimétrico funcional utilizando Java y NetBeans.</p>
+
+            <div class="references">
+                <h2>Referencias</h2>
+                <p>Hernández, L. (2016). Criptografía de clave asimétrica. En <em>La criptografía</em> (pp. 93-134). Editorial CSIC Consejo Superior de Investigaciones Científicas.</p>
+                <p>Maillo, J. (2017). Seguridad de la información. En <em>Sistemas seguros de acceso y transmisión de datos</em> (pp. 76-102). RA-MA Editorial.</p>
+                <p>Schneier, B. (2015). <em>Applied Cryptography: Protocols, Algorithms and Source Code in C</em> (20th Anniversary Edition). Wiley.</p>
+                <p>Ferguson, N., Schneier, B., & Kohno, T. (2010). <em>Cryptography Engineering: Design Principles and Practical Applications</em>. Wiley Publishing.</p>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CryptoCore S3. Seguridad en el Desarrollo de Software - Semana 3</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
